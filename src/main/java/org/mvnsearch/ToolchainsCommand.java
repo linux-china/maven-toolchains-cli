@@ -1,5 +1,6 @@
 package org.mvnsearch;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -19,8 +20,16 @@ public class ToolchainsCommand implements Callable<Integer> {
     @Component
     @Command(name = "list", mixinStandardHelpOptions = true, description = "List JDK")
     static class ListJDK implements Callable<Integer> {
+        @Autowired
+        private ToolchainService toolchainService;
+
         @Override
         public Integer call() {
+            toolchainService.findAllToolchains().stream()
+                    .filter(toolchain -> toolchain.getType().equalsIgnoreCase("jdk"))
+                    .forEach(toolchain -> {
+                        System.out.println(toolchain.findVersion() + ":" + toolchain.findJdkHome());
+                    });
             return 0;
         }
     }
@@ -33,7 +42,7 @@ public class ToolchainsCommand implements Callable<Integer> {
 
         @Override
         public Integer call() {
-            System.out.println("mycommand sub ce.service");
+            System.out.println("JDK deleted");
             return 43;
         }
     }
@@ -46,7 +55,7 @@ public class ToolchainsCommand implements Callable<Integer> {
 
         @Override
         public Integer call() {
-            System.out.println("mycommand sub ce.service");
+            System.out.println("JDK added");
             return 43;
         }
     }
