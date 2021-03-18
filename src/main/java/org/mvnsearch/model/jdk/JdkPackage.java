@@ -37,4 +37,8 @@ public class JdkPackage {
     public void setSize(int size) {
         this.size = size;
     }
+
+    public String getInstallDir() {
+        return name.substring(0,name.indexOf("."));
+    }
 }
