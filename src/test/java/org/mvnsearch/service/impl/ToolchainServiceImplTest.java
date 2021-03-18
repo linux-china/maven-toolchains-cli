@@ -1,8 +1,7 @@
-package org.mvnsearch.impl;
+package org.mvnsearch.service.impl;
 
 import org.junit.jupiter.api.Test;
 import org.mvnsearch.model.Toolchain;
-
 
 public class ToolchainServiceImplTest {
 
