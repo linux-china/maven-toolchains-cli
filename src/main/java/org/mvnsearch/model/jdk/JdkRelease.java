@@ -31,4 +31,9 @@ public class JdkRelease {
     public void setBinary(JdkBinary binary) {
         this.binary = binary;
     }
+
+    public boolean isJDKAvailable(String os, String arch) {
+      return binary.getOs().equals(os) && binary.getImageType().equals("jdk") && binary.getArchitecture().equals(arch);
+    }
+
 }
