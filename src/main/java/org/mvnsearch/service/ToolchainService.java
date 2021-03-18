@@ -1,4 +1,4 @@
-package org.mvnsearch;
+package org.mvnsearch.service;
 
 import org.mvnsearch.model.Toolchain;
 
