@@ -35,7 +35,12 @@ public class ToolchainsCommand implements Callable<Integer> {
             toolchainService.findAllToolchains().stream()
                     .filter(toolchain -> toolchain.getType().equalsIgnoreCase("jdk"))
                     .forEach(toolchain -> {
-                        System.out.printf("%3s: %s%n", toolchain.findVersion(), toolchain.findJdkHome());
+                        String jdkHome = toolchain.findJdkHome();
+                        if (new File(jdkHome).exists()) {
+                            System.out.printf("%3s: %s%n", toolchain.findVersion(), jdkHome);
+                        } else {
+                            System.err.printf("%3s: %s%n", toolchain.findVersion(), jdkHome);
+                        }
                     });
             return 0;
         }
