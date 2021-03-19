@@ -1,5 +1,6 @@
 package org.mvnsearch;
 
+import org.mvnsearch.service.ToolchainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
@@ -28,7 +29,7 @@ public class ToolchainsCommand implements Callable<Integer> {
             toolchainService.findAllToolchains().stream()
                     .filter(toolchain -> toolchain.getType().equalsIgnoreCase("jdk"))
                     .forEach(toolchain -> {
-                        System.out.println(toolchain.findVersion() + ":" + toolchain.findJdkHome());
+                        System.out.printf("%3s: %s%n", toolchain.findVersion(), toolchain.findJdkHome());
                     });
             return 0;
         }
