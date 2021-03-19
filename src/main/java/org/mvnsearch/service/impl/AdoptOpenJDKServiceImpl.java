@@ -64,6 +64,9 @@ public class AdoptOpenJDKServiceImpl implements AdoptOpenJDKService {
             archiveInputStream = new ZipArchiveInputStream((new FileInputStream(archiveFile)));
         }
         String name = archiveInputStream.getNextEntry().getName();
+        if (name.startsWith(".")) {  // fix '.._' bug
+            name = archiveInputStream.getNextEntry().getName();
+        }
         archiveInputStream.close();
         return name.replace("/", "");
     }
