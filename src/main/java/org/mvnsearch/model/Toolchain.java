@@ -37,6 +37,11 @@ public class Toolchain {
         return (String) getProvides().get("version");
     }
 
+    public double findNumVersion() {
+        String version = findVersion();
+        return Double.parseDouble(version);
+    }
+
     @Nullable
     public String findVendor() {
         return (String) getProvides().get("vendor");
