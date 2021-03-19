@@ -1,6 +1,9 @@
 package org.mvnsearch.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import org.jetbrains.annotations.Nullable;
 import org.mvnsearch.model.Toolchain;
 import org.mvnsearch.model.Toolchains;
@@ -9,30 +12,45 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class ToolchainServiceImpl implements ToolchainService {
-    private final XmlMapper xmlMapper = new XmlMapper();
+    private final ObjectMapper xmlMapper = new XmlMapper().configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true).enable(SerializationFeature.INDENT_OUTPUT);
+
+    @Override
+    public Toolchains readToolchains() {
+        try {
+            return xmlMapper.readValue(getToolchainsXml(), Toolchains.class);
+        } catch (IOException e) {
+            return new Toolchains();
+        }
+    }
 
     @Override
     public List<Toolchain> findAllToolchains() {
-        try {
-            return xmlMapper.readValue(getToolchainsXml(), Toolchains.class).getToolchain();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
+        return readToolchains().getToolchain();
     }
 
     @Override
     @Nullable
     public Toolchain findToolchain(String version, @Nullable String vendor) {
-        return findAllToolchains().stream()
-                .filter(toolchain -> toolchain.findVersion().equals(version))
-                .filter(toolchain -> vendor == null || vendor.equals(toolchain.findVendor()))
-                .findFirst().orElse(null);
+        return readToolchains().findToolchain(version, vendor);
+    }
+
+    @Override
+    public boolean deleteToolChain(String version, @Nullable String vendor) {
+        Toolchains toolchains = readToolchains();
+        try {
+            Toolchain toolchain = toolchains.findToolchain(version, vendor);
+            if (toolchain != null) {
+                toolchains.getToolchain().remove(toolchain);
+                xmlMapper.writeValue(getToolchainsXml(), toolchains);
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     private File getToolchainsXml() {
