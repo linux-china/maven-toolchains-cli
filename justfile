@@ -6,3 +6,9 @@ help: build
 
 list: build
   java -jar target/mt.jar list
+
+add: build
+  java -jar target/mt.jar add --vendor=graalvm 11
+
+native-build:
+  mvn -Pnative -DskipTests clean package
