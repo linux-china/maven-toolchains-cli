@@ -68,7 +68,7 @@ public class AdoptOpenJDKServiceImpl implements AdoptOpenJDKService {
             name = archiveInputStream.getNextEntry().getName();
         }
         archiveInputStream.close();
-        return name.replace("/", "");
+        return name.substring(0, name.indexOf("/"));
     }
 
     //with file permission reserved
