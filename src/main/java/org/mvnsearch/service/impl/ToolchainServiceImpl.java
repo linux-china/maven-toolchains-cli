@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class ToolchainServiceImpl implements ToolchainService {
         Toolchains toolchains = readToolchains();
         toolchains.getToolchain().add(toolchain);
         try {
+            toolchains.getToolchain().sort(Comparator.comparing(Toolchain::findNumVersion));
             xmlMapper.writeValue(getToolchainsXml(), toolchains);
         } catch (Exception e) {
             return false;
