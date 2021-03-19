@@ -75,9 +75,9 @@ public class ToolchainsCommand implements Callable<Integer> {
             Toolchain toolchain = toolchainService.findToolchain(version, vendor);
             if (toolchain == null) {
                 String arch = System.getProperty("os.arch");
-                if (arch.equals("x86_64")) {
+                if (arch.equals("x86_64") || arch.equals("amd64")) {
                     arch = "x64";
-                } else if (arch.equals("x86_32")) {
+                } else if (arch.equals("x86_32") || arch.equals("amd32")) {
                     arch = "x32";
                 }
                 String os = System.getProperty("os.name").toLowerCase();
