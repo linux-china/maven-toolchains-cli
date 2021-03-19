@@ -18,4 +18,6 @@ public interface ToolchainService {
 
 
     boolean deleteToolChain(String version, @Nullable String vendor);
+
+    boolean addToolChain(String version, @Nullable String vendor, String jdkHome);
 }

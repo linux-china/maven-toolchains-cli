@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -47,6 +49,26 @@ public class ToolchainServiceImpl implements ToolchainService {
                 toolchains.getToolchain().remove(toolchain);
                 xmlMapper.writeValue(getToolchainsXml(), toolchains);
             }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean addToolChain(String version, @Nullable String vendor, String jdkHome) {
+        Toolchain toolchain = new Toolchain();
+        toolchain.setType("jdk");
+        toolchain.setProvides(new HashMap<>());
+        toolchain.getProvides().put("version", version);
+        if (vendor != null) {
+            toolchain.getProvides().put("vendor", vendor);
+        }
+        toolchain.setConfiguration(Collections.singletonMap("jdkHome", jdkHome));
+        Toolchains toolchains = readToolchains();
+        toolchains.getToolchain().add(toolchain);
+        try {
+            xmlMapper.writeValue(getToolchainsXml(), toolchains);
         } catch (Exception e) {
             return false;
         }
