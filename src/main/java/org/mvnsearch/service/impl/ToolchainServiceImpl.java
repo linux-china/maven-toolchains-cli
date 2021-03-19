@@ -1,6 +1,7 @@
 package org.mvnsearch.service.impl;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.jetbrains.annotations.Nullable;
 import org.mvnsearch.model.Toolchain;
 import org.mvnsearch.model.Toolchains;
 import org.mvnsearch.service.ToolchainService;
@@ -23,6 +24,15 @@ public class ToolchainServiceImpl implements ToolchainService {
             e.printStackTrace();
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    @Nullable
+    public Toolchain findToolchain(String version, @Nullable String vendor) {
+        return findAllToolchains().stream()
+                .filter(toolchain -> toolchain.findVersion().equals(version))
+                .filter(toolchain -> vendor == null || vendor.equals(toolchain.findVendor()))
+                .findFirst().orElse(null);
     }
 
     private File getToolchainsXml() {
