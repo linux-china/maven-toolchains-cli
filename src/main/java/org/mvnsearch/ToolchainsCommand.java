@@ -8,6 +8,8 @@ import org.mvnsearch.model.jdk.JdkRelease;
 import org.mvnsearch.service.AdoptOpenJDKService;
 import org.mvnsearch.service.ToolchainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ansi.AnsiColor;
+import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -40,7 +42,8 @@ public class ToolchainsCommand implements Callable<Integer> {
                         if (new File(jdkHome).exists()) {
                             System.out.printf("%3s: %s%n", toolchain.findVersion(), jdkHome);
                         } else {
-                            System.err.printf("%3s: %s%n", toolchain.findVersion(), jdkHome);
+                            String output = String.format("%3s: %s", toolchain.findVersion(), jdkHome);
+                            System.out.println(AnsiOutput.toString(AnsiColor.RED, output));
                         }
                     });
             return 0;
