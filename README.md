@@ -47,3 +47,4 @@ https://github.com/graalvm/graalvm-ce-builds/releases
 
 * Apache Maven Toolchains Plugin: https://maven.apache.org/plugins/maven-toolchains-plugin/index.html
 * Maven toolchains.xml generator: https://gist.github.com/mathieucarbou/d7ce8fdf3e807e67ae07a9e79c66d82c
+* DiscoClient: foojay Disco API https://github.com/foojayio/discoapi
