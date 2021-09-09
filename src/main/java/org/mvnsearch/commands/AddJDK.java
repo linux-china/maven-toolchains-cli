@@ -21,7 +21,7 @@ import java.util.concurrent.Callable;
  */
 @Component
 @CommandLine.Command(name = "add", mixinStandardHelpOptions = true, description = "Add JDK")
-public class AddJDK implements Callable<Integer> {
+public class AddJDK implements Callable<Integer>, BaseCommand {
     @CommandLine.Option(names = "--vendor", description = "Java Vendor name: openjdk(default), graalvm")
     private String vendor;
     @CommandLine.Parameters(index = "0", description = "Java version: 8, 11, 17")
@@ -37,12 +37,7 @@ public class AddJDK implements Callable<Integer> {
     public Integer call() {
         Toolchain toolchain = toolchainService.findToolchain(version, vendor);
         if (toolchain == null) {
-            String arch = System.getProperty("os.arch");
-            if (arch.equals("x86_64") || arch.equals("amd64")) {
-                arch = "x64";
-            } else if (arch.equals("x86_32") || arch.equals("amd32")) {
-                arch = "x32";
-            }
+            String arch = getArchName();
             // link local jdk to toolchains.xml
             if (javaHome != null) {
                 File javaBin = new File(javaHome, "bin/java");
@@ -55,7 +50,7 @@ public class AddJDK implements Callable<Integer> {
                 }
             }
             try {
-                String os = System.getProperty("os.name").toLowerCase();
+                String os = getOsName();
                 String[] download;
                 if ("graalvm".equals(vendor)) {
                     download = getGraalVMDownload(version, os);
@@ -107,13 +102,6 @@ public class AddJDK implements Callable<Integer> {
             version = "8";
         } else {
             return null;
-        }
-        if (os.contains("mac") || os.contains("darwin")) {
-            os = "darwin";
-        } else if (os.contains("windows")) {
-            os = "windows";
-        } else {
-            os = "linux";
         }
         String extension = os.equals("windows") ? "zip" : "tar.gz";
         return new String[]{String.format("https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-%s/graalvm-ce-java%s-%s-amd64-%s.%s",
