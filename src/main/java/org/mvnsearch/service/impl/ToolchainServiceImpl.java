@@ -24,10 +24,14 @@ public class ToolchainServiceImpl implements ToolchainService {
     @Override
     public Toolchains readToolchains() {
         try {
-            return xmlMapper.readValue(getToolchainsXml(), Toolchains.class);
-        } catch (IOException e) {
-            return new Toolchains();
+            final File toolchainsXml = getToolchainsXml();
+            if (toolchainsXml.exists()) {
+                return xmlMapper.readValue(toolchainsXml, Toolchains.class);
+            }
+        } catch (IOException ignore) {
+
         }
+        return new Toolchains();
     }
 
     @Override
