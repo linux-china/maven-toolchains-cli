@@ -2,8 +2,6 @@ package org.mvnsearch.commands;
 
 import org.mvnsearch.service.ToolchainService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ansi.AnsiColor;
-import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 
@@ -40,7 +38,7 @@ public class ListJDK implements Callable<Integer> {
                     if (new File(jdkHome).exists()) {
                         return new String[]{vendor, version, jdkHome};
                     } else {
-                        return new String[]{vendor, version, AnsiOutput.toString(AnsiColor.RED, jdkHome)};
+                        return new String[]{vendor, version, FormatUtil.ERROR + jdkHome};
                     }
                 }).collect(Collectors.toList());
         table.addAll(jdkList);

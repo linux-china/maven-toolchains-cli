@@ -11,6 +11,8 @@ import java.util.stream.Stream;
  * @author linux_china
  */
 public class FormatUtil {
+    public static final String ERROR = "\uD83D\uDC94";
+
     public static void tableWithLines(List<String[]> table) {
         /*
          * leftJustifiedRows - If true, it will add "-" as a flag to format string to

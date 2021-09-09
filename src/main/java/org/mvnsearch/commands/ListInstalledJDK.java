@@ -1,7 +1,5 @@
 package org.mvnsearch.commands;
 
-import org.springframework.boot.ansi.AnsiColor;
-import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.stereotype.Component;
 import org.zeroturnaround.exec.ProcessExecutor;
 import picocli.CommandLine;
@@ -62,9 +60,7 @@ public class ListInstalledJDK implements Callable<Integer> {
                                 String version = parts[2];
                                 return new String[]{vendor, version, javaHome.getAbsolutePath()};
                             } catch (Exception e) {
-                                return new String[]{AnsiOutput.toString(AnsiColor.RED, "error"),
-                                        AnsiOutput.toString(AnsiColor.RED, "error"),
-                                        AnsiOutput.toString(AnsiColor.RED, javaHome.getAbsolutePath())};
+                                return new String[]{"error", "error", FormatUtil.ERROR + javaHome.getAbsolutePath()};
                             }
                         }).collect(Collectors.toList());
                 table.addAll(rows);
