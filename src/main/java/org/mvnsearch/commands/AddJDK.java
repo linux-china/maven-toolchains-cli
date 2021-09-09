@@ -22,10 +22,12 @@ import java.util.concurrent.Callable;
 @Component
 @CommandLine.Command(name = "add", mixinStandardHelpOptions = true, description = "Add JDK")
 public class AddJDK implements Callable<Integer> {
-    @CommandLine.Option(names = "--vendor", description = "Vendor")
+    @CommandLine.Option(names = "--vendor", description = "Java Vendor name: openjdk(default), graalvm")
     private String vendor;
-    @CommandLine.Parameters(index = "0", description = "The file whose checksum to calculate.")
+    @CommandLine.Parameters(index = "0", description = "Java version: 8, 11, 17")
     private String version;
+    @CommandLine.Parameters(index = "1", description = "Local Java Home with absolute path")
+    private String javaHome;
     @Autowired
     private AdoptOpenJDKService adoptOpenJDKService;
     @Autowired
@@ -41,8 +43,19 @@ public class AddJDK implements Callable<Integer> {
             } else if (arch.equals("x86_32") || arch.equals("amd32")) {
                 arch = "x32";
             }
-            String os = System.getProperty("os.name").toLowerCase();
+            // link local jdk to toolchains.xml
+            if (javaHome != null) {
+                File javaBin = new File(javaHome, "bin/java");
+                if (javaBin.exists()) {
+                    toolchainService.addToolChain(version, vendor, javaHome);
+                    System.out.println("Succeed to link JDK on " + javaHome);
+                } else {
+                    System.out.println("Java Home is not correct: " + javaHome);
+                    return 1;
+                }
+            }
             try {
+                String os = System.getProperty("os.name").toLowerCase();
                 String[] download;
                 if ("graalvm".equals(vendor)) {
                     download = getGraalVMDownload(version, os);
@@ -54,7 +67,7 @@ public class AddJDK implements Callable<Integer> {
                     String fileName = download[1];
                     File jdksDir = new File(System.getProperty("user.home") + "/.m2/jdks");
                     File jdkHome = adoptOpenJDKService.downloadAndExtract(link, fileName, jdksDir.getAbsolutePath());
-                    if (new File(jdkHome, "Contents").exists()) {  // mac tgz
+                    if (new File(jdkHome, "Contents/Home").exists()) {  // mac tgz
                         jdkHome = new File(jdkHome, "Contents/Home");
                     }
                     toolchainService.addToolChain(version, vendor, jdkHome.getAbsolutePath());
