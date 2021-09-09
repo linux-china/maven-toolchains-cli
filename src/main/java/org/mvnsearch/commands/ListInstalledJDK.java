@@ -6,7 +6,6 @@ import picocli.CommandLine;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -22,18 +21,26 @@ import static org.mvnsearch.commands.FormatUtil.tableWithLines;
  */
 @Component
 @CommandLine.Command(name = "all", mixinStandardHelpOptions = true, description = "List all installed JDK")
-public class ListInstalledJDK implements Callable<Integer> {
+public class ListInstalledJDK implements Callable<Integer>, BaseCommand {
     @Override
     public Integer call() throws Exception {
         final String userHome = System.getProperty("user.home");
-        List<File> installedDirs = Arrays.asList(
-                new File("/Library/Java/JavaVirtualMachines"),
-                new File(userHome, "Library/Java/JavaVirtualMachines"),
-                new File(userHome, ".sdkman/candidates/java/"),
-                new File(userHome, ".gradle/jdks"),
-                new File(userHome, ".jenv/candidates/java"),
-                new File(userHome, "..m2/jdks")
-        );
+        List<File> installedDirs = new ArrayList<>();
+        // jdk installed by third
+        installedDirs.add(new File(userHome, ".sdkman/candidates/java/"));
+        installedDirs.add(new File(userHome, ".gradle/jdks"));
+        installedDirs.add(new File(userHome, ".jenv/candidates/java"));
+        installedDirs.add(new File(userHome, ".m2/jdks"));
+        // os related directories
+        String os = getOsName();
+        if (os.equals("mac")) {
+            installedDirs.add(new File("/Library/Java/JavaVirtualMachines"));
+            installedDirs.add(new File(userHome, "Library/Java/JavaVirtualMachines"));
+        } else if (os.equals("windows")) {
+            installedDirs.add(new File("C:\\Program Files\\Java\\"));
+        } else {
+            installedDirs.add(new File("/usr/lib/jvm"));
+        }
         List<String[]> table = new ArrayList<>();
         table.add(new String[]{"Vendor", "Version", "Path"});
         System.out.println("Scanning the JDK...");
