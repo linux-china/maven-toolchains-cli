@@ -9,11 +9,11 @@ import java.util.Queue;
 
 
 public class DiscoClientTest {
+    private DiscoClient discoClient = new DiscoClient();
 
     @Test
     public void testFindJDK() {
-        DiscoClient discoClient = new DiscoClient();
-        //6-16
+        //version: 6-16
         final Queue<MajorVersion> allMajorVersions = discoClient.getAllMajorVersions();
         //distribution: ORACLE_OPEN_JDK, ORACLE, GRAALVM_CE11, ZULU
         final List<Distribution> distributions = discoClient.getDistributions();
@@ -45,5 +45,29 @@ public class DiscoClientTest {
         final String pkgDirectDownloadUri = discoClient.getPkgDirectDownloadUri(pkg.getEphemeralId(), new SemVer(pkg.getDistributionVersion()));
         System.out.println(pkgDirectDownloadUri);
 
+    }
+
+    @Test
+    public void testGraalVMDownload() {
+        //graalvm-ce-java11-darwin-amd64-21.2.0.tar.gz
+        final List<Pkg> pkgs = discoClient.getPkgs(
+                Distribution.GRAALVM_CE11,
+                new VersionNumber(21), //GraalVM version starts with 21
+                Latest.OVERALL,
+                OperatingSystem.MACOS,
+                LibCType.LIBC,
+                Architecture.AMD64,
+                Bitness.BIT_64,
+                ArchiveType.TAR_GZ,
+                PackageType.JDK,
+                false,
+                true,
+                ReleaseStatus.GA,  //GA or EA
+                TermOfSupport.NONE,  // LTS, MTS, STS
+                Scope.DIRECTLY_DOWNLOADABLE);
+        pkgs.forEach(pkg -> {
+            System.out.println(pkg);
+            System.out.println(pkg.getId());
+        });
     }
 }
