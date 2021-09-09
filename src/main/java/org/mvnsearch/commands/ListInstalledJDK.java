@@ -40,18 +40,18 @@ public class ListInstalledJDK implements Callable<Integer> {
                             return javaBin1.exists() || javaBin2.exists();
                         })
                         .map(javaHome -> {
-                            final File javaBin1 = new File(javaHome, "bin/java");
-                            final File javaBin2 = new File(javaHome, "Contents/Home/bin/java");
-                            return javaBin1.exists() ? javaBin1 : javaBin2;
+                            final File javaHome2 = new File(javaHome, "Contents/Home");
+                            return javaHome2.exists() ? javaHome2 : javaHome;
                         })
-                        .forEach(javaBin -> {
+                        .forEach(javaHome -> {
                             try {
+                                File javaBin = new File(javaHome, "bin/java");
                                 String javaVersionText = new ProcessExecutor().command(javaBin.getAbsolutePath(), "-version")
                                         .readOutput(true).execute().outputUTF8().split("\n")[0];
                                 final String[] parts = javaVersionText.split("[\\s\"]+");
                                 String vendor = parts[0];
                                 String version = parts[2];
-                                System.out.println(String.format("%20s", vendor + " " + version) + " : " + javaBin.getAbsolutePath());
+                                System.out.println(String.format("%20s", vendor + " " + version) + " : " + javaHome);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
