@@ -139,7 +139,7 @@ public class ToolchainsCommand implements Callable<Integer> {
 
         @Nullable
         private String[] getGraalVMDownload(String version, String os) {
-            String graalVersion = "21.0.0.2";
+            String graalVersion = "21.2.0";
             if (version.startsWith("11")) {
                 version = "11";
             } else if (version.startsWith("8") || version.startsWith("1.8")) {
