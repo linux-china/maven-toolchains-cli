@@ -19,8 +19,12 @@ import java.io.File;
 import java.util.concurrent.Callable;
 
 @Component
-@Command(name = "mt", mixinStandardHelpOptions = true,
-        subcommands = {ToolchainsCommand.ListJDK.class, ToolchainsCommand.AddJDK.class, ToolchainsCommand.DeleteJDK.class,})
+@Command(name = "mt", version = "0.1.0",
+        mixinStandardHelpOptions = true,
+        subcommands = {ToolchainsCommand.ListJDK.class,
+                ToolchainsCommand.AddJDK.class,
+                ToolchainsCommand.DeleteJDK.class}
+)
 public class ToolchainsCommand implements Callable<Integer> {
     @Override
     public Integer call() {
