@@ -43,7 +43,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
                 File javaBin = new File(javaHome, "bin/java");
                 if (javaBin.exists()) {
                     toolchainService.addToolChain(version, vendor, javaHome);
-                    System.out.println("Succeed to link JDK on " + javaHome);
+                    System.out.println("Succeed to add JDK " + version + " in toolchains.xml");
                 } else {
                     System.out.println("Java Home is not correct: " + javaHome);
                     return 1;
@@ -66,7 +66,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
                         jdkHome = new File(jdkHome, "Contents/Home");
                     }
                     toolchainService.addToolChain(version, vendor, jdkHome.getAbsolutePath());
-                    System.out.println("Succeed to install JDK on " + jdkHome.getAbsolutePath());
+                    System.out.println("Succeed to add JDK " + version + " in toolchains.xml");
                 } else {
                     System.out.println("JDK not found: " + version);
                 }
