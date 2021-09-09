@@ -149,6 +149,10 @@
                 <version>3.8.1</version>
                 <configuration>
                     <parameters>true</parameters>
+                    <compilerArgs>
+                        <arg>--add-modules</arg>
+                        <arg>java.base</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
