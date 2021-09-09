@@ -8,7 +8,10 @@ import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 /**
  * List JDK in toolchains.xml
@@ -23,17 +26,25 @@ public class ListJDK implements Callable<Integer> {
 
     @Override
     public Integer call() {
-        toolchainService.findAllToolchains().stream()
+        List<String[]> table = new ArrayList<>();
+        table.add(new String[]{"Vendor", "Version", "Path"});
+        final List<String[]> jdkList = toolchainService.findAllToolchains().stream()
                 .filter(toolchain -> toolchain.getType().equalsIgnoreCase("jdk"))
-                .forEach(toolchain -> {
+                .map(toolchain -> {
                     String jdkHome = toolchain.findJdkHome();
-                    if (new File(jdkHome).exists()) {
-                        System.out.printf("%3s: %s%n", toolchain.findVersion(), jdkHome);
-                    } else {
-                        String output = String.format("%3s: %s", toolchain.findVersion(), jdkHome);
-                        System.out.println(AnsiOutput.toString(AnsiColor.RED, output));
+                    String vendor = toolchain.findVendor();
+                    if (vendor == null) {
+                        vendor = "";
                     }
-                });
+                    String version = toolchain.findVersion();
+                    if (new File(jdkHome).exists()) {
+                        return new String[]{vendor, version, jdkHome};
+                    } else {
+                        return new String[]{vendor, version, AnsiOutput.toString(AnsiColor.RED, jdkHome)};
+                    }
+                }).collect(Collectors.toList());
+        table.addAll(jdkList);
+        FormatUtil.tableWithLines(table);
         return 0;
     }
 }
