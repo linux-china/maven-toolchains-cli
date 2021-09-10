@@ -8,6 +8,12 @@ CLI for Maven toolchains.xml
 * Manage ~/.m2/toolchains.xml
 * OpenJDK auto install:  https://adoptopenjdk.net/index.html  and  https://github.com/graalvm/graalvm-ce-builds/releases
 
+# How to install?
+
+```
+brew install linux-china/tap/maven-toolchains-cli
+```
+
 # commands
 
 * all  - List all JDK on host
@@ -40,6 +46,7 @@ CLI for Maven toolchains.xml
 
 * Apache Maven Toolchains Plugin: https://maven.apache.org/plugins/maven-toolchains-plugin/index.html
 * Maven toolchains.xml generator: https://gist.github.com/mathieucarbou/d7ce8fdf3e807e67ae07a9e79c66d82c
-* AdoptOpenJDK API v3: https://api.adoptopenjdk.net/
+* Adoptium: Eclipse Temurin https://adoptium.net/
+* Adoptium API: https://api.adoptium.net/q/swagger-ui/
 * DiscoClient: foojay Disco API https://github.com/foojayio/discoapi
 * GraalVM releases: https://github.com/graalvm/graalvm-ce-builds/releases
