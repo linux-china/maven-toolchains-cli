@@ -21,7 +21,7 @@ import java.net.URL;
 
 @Service
 public class AdoptOpenJDKServiceImpl implements AdoptOpenJDKService {
-    private static ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    private static final ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     @Override
     public JdkRelease[] findReleases(String version) throws Exception {
