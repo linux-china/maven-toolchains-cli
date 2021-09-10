@@ -26,7 +26,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
     private String vendor;
     @CommandLine.Parameters(index = "0", description = "Java version: 8, 11, 17")
     private String version;
-    @CommandLine.Parameters(index = "1", description = "Local Java Home with absolute path")
+    @CommandLine.Parameters(index = "1", arity = "0..1", description = "Local Java Home with absolute path")
     private String javaHome;
     @Autowired
     private AdoptOpenJDKService adoptOpenJDKService;
