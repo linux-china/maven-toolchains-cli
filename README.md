@@ -23,12 +23,18 @@ brew install linux-china/tap/maven-toolchains-cli
 
 # JDK Install Directories
 
-* system: /Library/Java/JavaVirtualMachines
+* system:
+
+   * mac: /Library/Java/JavaVirtualMachines
+   * windows: C:\Program Files\Java\
+   * linux:  /usr/lib/jvm
+
 * IntelliJ: ~/Library/Java/JavaVirtualMachines/
 * sdkman: ~/.sdkman/candidates/java/
 * gradle: ~/.gradle/jdks
 * jenv: ~/.jenv/candidates/java/
 * maven: ~/.m2/jdks
+* jbang: ~/.jbang/cache/jdks
 
 ### OS
 
