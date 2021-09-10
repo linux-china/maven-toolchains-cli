@@ -32,7 +32,7 @@ public class AdoptOpenJDKServiceImpl implements AdoptOpenJDKService {
         if (majorVersion.contains(".")) {
             majorVersion = majorVersion.substring(0, majorVersion.indexOf("."));
         }
-        URL link = new URL("https://api.adoptopenjdk.net/v3/assets/latest/" + majorVersion + "/hotspot?release=latest&jvm_impl=hotspot&vendor=adoptopenjdk");
+        URL link = new URL("https://api.adoptium.net/v3/assets/latest/" + majorVersion + "/hotspot?release=latest&jvm_impl=hotspot&vendor=adoptium");
         return objectMapper.readValue(link, JdkRelease[].class);
     }
 
