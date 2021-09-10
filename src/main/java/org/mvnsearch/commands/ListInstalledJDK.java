@@ -31,6 +31,7 @@ public class ListInstalledJDK implements Callable<Integer>, BaseCommand {
         installedDirs.add(new File(userHome, ".gradle/jdks"));
         installedDirs.add(new File(userHome, ".jenv/candidates/java"));
         installedDirs.add(new File(userHome, ".m2/jdks"));
+        installedDirs.add(new File(userHome, ".jbang/cache/jdks"));
         // os related directories
         String os = getOsName();
         if (os.equals("mac")) {
