@@ -40,6 +40,10 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
             String arch = getArchName();
             // link local jdk to toolchains.xml
             if (javaHome != null) {
+                // check home for Mac
+                if (new File(javaHome, "Contents/Home").exists()) {
+                    javaHome = new File(javaHome, "Contents/Home").getAbsolutePath();
+                }
                 return installFromLocal();
             }
             try {
