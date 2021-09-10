@@ -40,14 +40,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
             String arch = getArchName();
             // link local jdk to toolchains.xml
             if (javaHome != null) {
-                File javaBin = new File(javaHome, "bin/java");
-                if (javaBin.exists()) {
-                    toolchainService.addToolChain(version, vendor, javaHome);
-                    System.out.println("Succeed to add JDK " + version + " in toolchains.xml");
-                } else {
-                    System.out.println("Java Home is not correct: " + javaHome);
-                    return 1;
-                }
+                return installFromLocal();
             }
             try {
                 String os = getOsName();
@@ -77,6 +70,19 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
             System.out.println("Added already!");
         }
         return 0;
+    }
+
+
+    private int installFromLocal() {
+        File javaBin = new File(javaHome, "bin/java");
+        if (javaBin.exists()) {
+            toolchainService.addToolChain(version, vendor, javaHome);
+            System.out.println("Succeed to add JDK " + version + " in toolchains.xml");
+            return 0;
+        } else {
+            System.out.println("Java Home is not correct: " + javaHome);
+            return 1;
+        }
     }
 
     @Nullable
