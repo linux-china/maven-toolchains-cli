@@ -1,5 +1,5 @@
 build:
-   mvn -DskipTests package
+  mvn -q -DskipTests package
 
 help: build
   java -jar target/mt.jar --help
