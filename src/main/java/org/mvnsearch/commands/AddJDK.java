@@ -49,7 +49,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
             try {
                 String os = getOsName();
                 String[] download;
-                if ("graalvm".equals(vendor)) {
+                if ("graalvm".equalsIgnoreCase(vendor)) {
                     download = getGraalVMDownload(version, os);
                 } else {
                     download = getAdoptJDKDownload(version, os, arch);
