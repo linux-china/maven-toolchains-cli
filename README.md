@@ -78,5 +78,6 @@ Please add following code in your flow YAML file.
 * Maven toolchains.xml generator: https://gist.github.com/mathieucarbou/d7ce8fdf3e807e67ae07a9e79c66d82c
 * Adoptium: Eclipse Temurin https://adoptium.net/
 * Adoptium API: https://api.adoptium.net/q/swagger-ui/
-* DiscoClient: foojay Disco API https://github.com/foojayio/discoapi
+* foojay DiscoClient:  https://github.com/foojayio/discoapi
+* foojay Disco API: https://api.foojay.io/swagger-ui/
 * GraalVM releases: https://github.com/graalvm/graalvm-ce-builds/releases
