@@ -42,6 +42,36 @@ brew install linux-china/tap/maven-toolchains-cli
 * x32
 * aarch64(arm64)
 
+
+# GitHub Actions configuration
+
+Please add following code in your flow YAML file.
+
+```yaml
+- uses: actions/setup-java@v2
+  with:
+    distribution: 'temurin'
+    java-version: '11'
+- name: Set up Toolchain
+  shell: bash
+  run: |
+    mkdir -p $HOME/.m2 \
+    && cat << EOF > $HOME/.m2/toolchains.xml
+    <?xml version="1.0" encoding="UTF8"?>
+    <toolchains>
+      <toolchain>
+        <type>jdk</type>
+          <provides>
+            <version>11</version>
+          </provides>
+          <configuration>
+            <jdkHome>${{ env.JAVA_HOME }}</jdkHome>
+          </configuration>
+      </toolchain>
+    </toolchains>
+    EOF
+```
+
 # References
 
 * Apache Maven Toolchains Plugin: https://maven.apache.org/plugins/maven-toolchains-plugin/index.html
