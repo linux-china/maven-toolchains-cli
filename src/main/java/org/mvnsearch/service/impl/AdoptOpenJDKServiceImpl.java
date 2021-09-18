@@ -64,11 +64,17 @@ public class AdoptOpenJDKServiceImpl implements AdoptOpenJDKService {
             archiveInputStream = new ZipArchiveInputStream((new FileInputStream(archiveFile)));
         }
         String name = archiveInputStream.getNextEntry().getName();
-        if (name.startsWith(".")) {  // fix '.._' bug
+        while (name.startsWith(".") && name.length() < 4) {  // fix '.._' bug
             name = archiveInputStream.getNextEntry().getName();
         }
         archiveInputStream.close();
-        return name.substring(0, name.indexOf("/"));
+        if (name.startsWith("./")) {
+            name = name.substring(2);
+        }
+        if (name.contains("/")) {
+            name = name.substring(0, name.indexOf("/"));
+        }
+        return name;
     }
 
     //with file permission reserved
