@@ -10,7 +10,7 @@ list: build
   java -jar target/mt.jar list
 
 add: build
-  java -jar target/mt.jar add 16
+  java -jar target/mt.jar add 17
 
 add_loom: build
   java -jar target/mt.jar add 18 /Users/linux_china/.jenv/candidates/java/loom
