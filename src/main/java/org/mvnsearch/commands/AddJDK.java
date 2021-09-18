@@ -52,7 +52,11 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
                 if ("graalvm".equalsIgnoreCase(vendor)) {
                     download = getGraalVMDownload(version, os);
                 } else {
-                    download = getAdoptJDKDownload(version, os, arch);
+                    if (version.startsWith("17")) {
+                        download = getOracleJDKDownload(version, os, arch);
+                    } else {
+                        download = getAdoptJDKDownload(version, os, arch);
+                    }
                 }
                 if (download != null) {
                     String link = download[0];
@@ -101,6 +105,18 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
             }
         }
         return null;
+    }
+
+    private String[] getOracleJDKDownload(String version, String os, String arch) {
+        String fileName = null;
+        if (os.equals("windows")) {
+            fileName = "jdk-17_windows-" + arch + "_bin.zip";
+        } else if (os.equals("mac")) {
+            fileName = "jdk-17_macos-" + arch + "_bin.tar.gz";
+        } else {
+            fileName = "jdk-17_linux-" + arch + "_bin.tar.gz";
+        }
+        return new String[]{"https://download.oracle.com/java/17/latest/" + fileName, fileName};
     }
 
     @Nullable
