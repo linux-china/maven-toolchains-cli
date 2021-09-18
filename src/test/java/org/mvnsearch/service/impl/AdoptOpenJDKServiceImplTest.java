@@ -23,8 +23,8 @@ public class AdoptOpenJDKServiceImplTest {
 
     @Test
     public void testDownloadAndExtract() throws Exception {
-        String fileName = "OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz";
-        String link = "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz";
+        String fileName = "jdk-17_macos-x64_bin.tar.gz";
+        String link = "https://download.oracle.com/java/17/latest/jdk-17_macos-x64_bin.tar.gz";
         File file = adoptOpenJDKService.downloadAndExtract(link, fileName, System.getProperty("user.home") + "/.m2/jdks");
         System.out.println(file.getAbsolutePath());
     }
@@ -32,7 +32,7 @@ public class AdoptOpenJDKServiceImplTest {
 
     @Test
     public void testGetRootName() throws Exception {
-        File tarGzFile = new File(System.getProperty("user.home"), ".m2/jdks/OpenJDK11U-jdk_x64_mac_hotspot_11.0.10_9.tar.gz");
+        File tarGzFile = new File(System.getProperty("user.home"), ".m2/jdks/graalvm-ce-java21.0.0.2-darwin-amd64-21.0.0.2.tar.gz");
         System.out.println(adoptOpenJDKService.getRootNameInArchive(tarGzFile));
     }
 }
