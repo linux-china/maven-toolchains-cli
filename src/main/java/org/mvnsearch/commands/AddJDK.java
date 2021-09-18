@@ -72,6 +72,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
                     System.out.println("JDK not found: " + version);
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Failed to fetch information from AdoptOpenJDK!");
             }
         } else {
