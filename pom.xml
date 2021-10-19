@@ -6,7 +6,7 @@
 
     <groupId>org.mvnsearch</groupId>
     <artifactId>maven-toolchains-cli</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.1-SNAPSHOT</version>
 
     <name>maven-toolchains-cli</name>
     <description>Maven Toolchains CLI</description>
@@ -19,8 +19,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <graalvm.version>21.2.0</graalvm.version>
         <picocli.version>4.6.1</picocli.version>
-        <spring-native.version>0.10.3</spring-native.version>
-        <spring-boot.version>2.5.4</spring-boot.version>
+        <spring-native.version>0.10.4</spring-native.version>
+        <spring-boot.version>2.5.5</spring-boot.version>
         <start-class>org.mvnsearch.MavenToolchainsCli</start-class>
         <native-build.args>
             --enable-all-security-services
@@ -150,7 +150,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.20.2</version>
+            <version>3.21.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -160,14 +160,14 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.7.2</version>
+                <version>5.8.1</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson</groupId>
                 <artifactId>jackson-bom</artifactId>
-                <version>2.12.4</version>
+                <version>2.12.5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -270,7 +270,7 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
-                        <version>0.9.5</version>
+                        <version>0.9.6</version>
                         <configuration>
                             <mainClass>${start-class}</mainClass>
                             <imageName>${project.build.finalName}</imageName>
