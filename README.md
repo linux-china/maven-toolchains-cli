@@ -11,7 +11,8 @@ CLI for Maven toolchains.xml
 # How to install?
 
 ```
-brew install linux-china/tap/maven-toolchains-cli
+$ brew install linux-china/tap/maven-toolchains-cli
+$ mt --version
 ```
 
 # commands
