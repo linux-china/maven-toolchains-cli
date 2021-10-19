@@ -49,34 +49,44 @@ $ mt --version
 * x32
 * aarch64(arm64)
 
+# How to use toolchains for development?
 
-# GitHub Actions configuration
+Please add toolchains profile in your pom.xml
 
-Please add following code in your flow YAML file.
-
-```yaml
-- uses: actions/setup-java@v2
-  with:
-    distribution: 'temurin'
-    java-version: '11'
-- name: Set up Toolchain
-  shell: bash
-  run: |
-    mkdir -p $HOME/.m2 \
-    && cat << EOF > $HOME/.m2/toolchains.xml
-    <?xml version="1.0" encoding="UTF8"?>
-    <toolchains>
-      <toolchain>
-        <type>jdk</type>
-          <provides>
-            <version>11</version>
-          </provides>
-          <configuration>
-            <jdkHome>${{ env.JAVA_HOME }}</jdkHome>
-          </configuration>
-      </toolchain>
-    </toolchains>
-    EOF
+```xml
+   <profiles>
+      <profile>
+            <id>toolchains</id>
+            <activation>
+                <file>
+                    <exists>${env.HOME}/.m2/toolchains.xml</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-toolchains-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>toolchain</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <toolchains>
+                                <jdk>
+                                    <version>17</version>
+                                </jdk>
+                            </toolchains>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+      </profiles>
 ```
 
 # References
