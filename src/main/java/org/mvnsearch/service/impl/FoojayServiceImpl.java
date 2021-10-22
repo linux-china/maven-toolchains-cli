@@ -3,6 +3,7 @@ package org.mvnsearch.service.impl;
 import io.foojay.api.discoclient.DiscoClient;
 import io.foojay.api.discoclient.pkg.*;
 import org.mvnsearch.service.FoojayService;
+import org.mvnsearch.service.JdkDownloadLink;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class FoojayServiceImpl extends JdkDistributionSupport implements FoojayS
     private DiscoClient discoClient = new DiscoClient();
 
     @Override
-    public List<Pkg> findReleases(String version, String vendor) throws Exception {
+    public JdkDownloadLink findRelease(String version, String vendor) throws Exception {
         VersionNumber majorVersion = new VersionNumber(17);
         if (version.startsWith("1.8")) {
             majorVersion = new VersionNumber(8);
@@ -40,7 +41,7 @@ public class FoojayServiceImpl extends JdkDistributionSupport implements FoojayS
         } else if (archName.contains("aarch64") || archName.contains("arm64")) {
             arch = Architecture.AARCH64;
         }
-        return discoClient.getPkgs(
+        final List<Pkg> pkgs = discoClient.getPkgs(
                 distribution,
                 majorVersion,
                 Latest.OVERALL,
@@ -55,6 +56,14 @@ public class FoojayServiceImpl extends JdkDistributionSupport implements FoojayS
                 ReleaseStatus.GA,  //GA or EA
                 TermOfSupport.NONE,  // LTS, MTS, STS
                 Scope.DIRECTLY_DOWNLOADABLE);
+        if (pkgs != null && !pkgs.isEmpty()) {
+
+            String pkgId = pkgs.get(0).getId();
+            final Pkg pkg = discoClient.getPkg(pkgId);
+            final String pkgDirectDownloadUri = discoClient.getPkgDirectDownloadUri(pkg.getEphemeralId(), new SemVer(pkg.getDistributionVersion()));
+            return new JdkDownloadLink(pkgDirectDownloadUri, pkg.getFileName());
+        }
+        return null;
     }
 
 }

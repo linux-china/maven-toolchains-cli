@@ -18,7 +18,7 @@ public class AdoptiumServiceImpl extends JdkDistributionSupport implements Adopt
 
     @Nullable
     @Override
-    public JdkDownloadLink findReleases(String version) throws Exception {
+    public JdkDownloadLink findRelease(String version) throws Exception {
         String majorVersion = version;
         if (majorVersion.startsWith("1.8")) {
             majorVersion = "8";
