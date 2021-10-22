@@ -12,7 +12,7 @@ import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
 import org.codehaus.plexus.archiver.zip.ZipUnArchiver;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
-import org.mvnsearch.model.jdk.JdkRelease;
+import org.mvnsearch.model.adoptium.JdkRelease;
 import org.mvnsearch.service.AdoptiumService;
 import org.springframework.stereotype.Service;
 

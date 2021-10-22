@@ -1,7 +1,7 @@
 package org.mvnsearch.service;
 
 
-import org.mvnsearch.model.jdk.JdkRelease;
+import org.mvnsearch.model.adoptium.JdkRelease;
 
 import java.io.File;
 
