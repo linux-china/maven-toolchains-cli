@@ -1,4 +1,4 @@
-package org.mvnsearch.model.jdk;
+package org.mvnsearch.model.adoptium;
 
 public class JdkPackage {
     private String checksum;

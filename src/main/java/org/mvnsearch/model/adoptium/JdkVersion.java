@@ -1,4 +1,4 @@
-package org.mvnsearch.model.jdk;
+package org.mvnsearch.model.adoptium;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
