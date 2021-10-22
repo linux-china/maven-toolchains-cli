@@ -13,7 +13,7 @@ import org.codehaus.plexus.archiver.zip.ZipUnArchiver;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.mvnsearch.model.jdk.JdkRelease;
-import org.mvnsearch.service.AdoptOpenJDKService;
+import org.mvnsearch.service.AdoptiumService;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 
 @Service
-public class AdoptOpenJDKServiceImpl implements AdoptOpenJDKService {
+public class AdoptiumServiceImpl implements AdoptiumService {
     private static final ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     @Override

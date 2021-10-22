@@ -5,7 +5,7 @@ import org.mvnsearch.model.jdk.JdkRelease;
 
 import java.io.File;
 
-public interface AdoptOpenJDKService {
+public interface AdoptiumService {
 
     JdkRelease[] findReleases(String version) throws Exception;
 
