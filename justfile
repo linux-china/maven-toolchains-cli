@@ -1,4 +1,4 @@
-export MT_VERSION := "0.1.0"
+export MT_VERSION := "0.2.0"
 
 build:
   mvn -q -DskipTests package
@@ -8,6 +8,9 @@ help: build
 
 list: build
   java -jar target/mt.jar list
+
+vendors: build
+  java -jar target/mt.jar vendors
 
 add: build
   java -jar target/mt.jar add 17
