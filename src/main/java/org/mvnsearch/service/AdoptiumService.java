@@ -9,7 +9,7 @@ import java.io.File;
 public interface AdoptiumService {
 
     @Nullable
-    JdkRelease findReleases(String version) throws Exception;
+    JdkDownloadLink findReleases(String version) throws Exception;
 
     File downloadAndExtract(String link, String fileName, String destDir) throws Exception;
 }
