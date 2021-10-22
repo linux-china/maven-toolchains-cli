@@ -1,12 +1,7 @@
 package org.mvnsearch.commands;
 
-import org.jetbrains.annotations.Nullable;
 import org.mvnsearch.model.Toolchain;
-import org.mvnsearch.model.jdk.JdkBinary;
-import org.mvnsearch.model.jdk.JdkPackage;
-import org.mvnsearch.model.jdk.JdkRelease;
-import org.mvnsearch.service.AdoptOpenJDKService;
-import org.mvnsearch.service.ToolchainService;
+import org.mvnsearch.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
@@ -22,14 +17,17 @@ import java.util.concurrent.Callable;
 @Component
 @CommandLine.Command(name = "add", mixinStandardHelpOptions = true, description = "Add JDK")
 public class AddJDK implements Callable<Integer>, BaseCommand {
-    @CommandLine.Option(names = "--vendor", description = "Java Vendor name: openjdk(default), graalvm")
-    private String vendor;
+    @CommandLine.Option(names = "--vendor", description = "Java Vendor name: temurin(default), graalvm")
+    private String vendor = "temurin";
     @CommandLine.Parameters(index = "0", description = "Java version: 8, 11, 17")
     private String version;
     @CommandLine.Parameters(index = "1", arity = "0..1", description = "Local Java Home with absolute path")
     private String javaHome;
     @Autowired
-    private AdoptOpenJDKService adoptOpenJDKService;
+    private AdoptiumService adoptiumService;
+    private FoojayService foojayService;
+    @Autowired
+    private GraalVMService graalVMService;
     @Autowired
     private ToolchainService toolchainService;
 
@@ -48,21 +46,17 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
             }
             try {
                 String os = getOsName();
-                String[] download;
-                if ("graalvm".equalsIgnoreCase(vendor)) {
-                    download = getGraalVMDownload(version, os);
+                JdkDownloadLink download;
+                if (vendor.contains("graalvm")) {
+                    download = graalVMService.findRelease(version, vendor);
+                } else if (vendor.equals("temurin")) {
+                    download = adoptiumService.findRelease(version);
                 } else {
-                    if (version.startsWith("17")) {
-                        download = getOracleJDKDownload(version, os, arch);
-                    } else {
-                        download = getAdoptJDKDownload(version, os, arch);
-                    }
+                    download = foojayService.findRelease(version, vendor);
                 }
                 if (download != null) {
-                    String link = download[0];
-                    String fileName = download[1];
                     File jdksDir = new File(System.getProperty("user.home") + "/.m2/jdks");
-                    File jdkHome = adoptOpenJDKService.downloadAndExtract(link, fileName, jdksDir.getAbsolutePath());
+                    File jdkHome = adoptiumService.downloadAndExtract(download.getUrl(), download.getFileName(), jdksDir.getAbsolutePath());
                     if (new File(jdkHome, "Contents/Home").exists()) {  // mac tgz
                         jdkHome = new File(jdkHome, "Contents/Home");
                     }
@@ -73,7 +67,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("Failed to fetch information from AdoptOpenJDK!");
+                System.out.println("Failed to fetch information from Adoptium https://adoptium.net/!");
             }
         } else {
             System.out.println("Added already!");
@@ -94,45 +88,4 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
         }
     }
 
-    @Nullable
-    private String[] getAdoptJDKDownload(String version, String os, String arch) throws Exception {
-        JdkRelease[] releases = adoptOpenJDKService.findReleases(version);
-        for (JdkRelease release : releases) {
-            JdkBinary binary = release.getBinary();
-            if (binary.getImageType().equals("jdk") && os.contains(binary.getOs()) && arch.contains(binary.getArchitecture())) {
-                JdkPackage jdkPackage = binary.getJdkPackage();
-                String link = jdkPackage.getLink();
-                return new String[]{link, jdkPackage.getName()};
-            }
-        }
-        return null;
-    }
-
-    private String[] getOracleJDKDownload(String version, String os, String arch) {
-        String fileName = null;
-        if (os.equals("windows")) {
-            fileName = "jdk-17_windows-" + arch + "_bin.zip";
-        } else if (os.equals("mac")) {
-            fileName = "jdk-17_macos-" + arch + "_bin.tar.gz";
-        } else {
-            fileName = "jdk-17_linux-" + arch + "_bin.tar.gz";
-        }
-        return new String[]{"https://download.oracle.com/java/17/latest/" + fileName, fileName};
-    }
-
-    @Nullable
-    private String[] getGraalVMDownload(String version, String os) {
-        String graalVersion = "21.2.0";
-        if (version.startsWith("11")) {
-            version = "11";
-        } else if (version.startsWith("8") || version.startsWith("1.8")) {
-            version = "8";
-        } else {
-            return null;
-        }
-        String extension = os.equals("windows") ? "zip" : "tar.gz";
-        return new String[]{String.format("https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-%s/graalvm-ce-java%s-%s-amd64-%s.%s",
-                graalVersion, version, os, graalVersion, extension),
-                String.format("graalvm-ce-java%s-%s-amd64-%s.%s", graalVersion, os, graalVersion, extension)};
-    }
 }
