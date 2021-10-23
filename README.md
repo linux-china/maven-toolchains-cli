@@ -18,9 +18,10 @@ $ mt --version
 # commands
 
 * all  - List all JDK on host
-* list - List tools in toolchains.xml
-* add  - Add JDK into toolchains.xml `mt add 1.8 /Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk`  or `mt add 16`
+* list - List JDK in toolchains.xml
+* add  - Add JDK from local or remote into toolchains.xml `mt add 1.8 /Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk`  or `mt add 16`
 * delete - Delete JDK in toolchains.xml
+* vendors - List JDK Vendors
 
 # JDK Install Directories
 
