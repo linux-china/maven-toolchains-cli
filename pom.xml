@@ -6,7 +6,7 @@
 
     <groupId>org.mvnsearch</groupId>
     <artifactId>maven-toolchains-cli</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.3.0</version>
 
     <name>maven-toolchains-cli</name>
     <description>Maven Toolchains CLI</description>
