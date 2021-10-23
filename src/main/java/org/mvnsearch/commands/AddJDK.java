@@ -4,6 +4,7 @@ import org.mvnsearch.model.Toolchain;
 import org.mvnsearch.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.zeroturnaround.exec.ProcessExecutor;
 import picocli.CommandLine;
 
 import java.io.File;
@@ -63,6 +64,10 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
                     }
                     toolchainService.addToolChain(version, vendor, jdkHome.getAbsolutePath());
                     System.out.println("Succeed to add JDK " + version + " in toolchains.xml");
+                    if (vendor.contains("graalvm")) {
+                        File guBin = new File(jdkHome, "bin/gu");
+                        new ProcessExecutor().command(guBin.getAbsolutePath(), "install", "native-image", "--ignore").execute();
+                    }
                 } else {
                     System.out.println("JDK not found: " + version);
                 }
