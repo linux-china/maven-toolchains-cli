@@ -4,21 +4,25 @@ import io.foojay.api.discoclient.DiscoClient;
 import io.foojay.api.discoclient.pkg.*;
 import org.mvnsearch.service.FoojayService;
 import org.mvnsearch.service.JdkDownloadLink;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
+@Service
 public class FoojayServiceImpl extends JdkDistributionSupport implements FoojayService {
     private DiscoClient discoClient = new DiscoClient();
 
     @Override
     public JdkDownloadLink findRelease(String version, String vendor) throws Exception {
-        VersionNumber majorVersion = new VersionNumber(17);
+        VersionNumber majorVersion;
         if (version.startsWith("1.8")) {
             majorVersion = new VersionNumber(8);
-        }
-        if (version.contains(".")) {
-            majorVersion = new VersionNumber(Integer.valueOf(version.substring(0, version.indexOf("."))));
+        } else if (version.contains(".")) {
+            final String[] parts = version.split("\\.", 3);
+            majorVersion = new VersionNumber(Integer.parseInt(parts[0]), Integer.valueOf(parts[1]));
+        } else {
+            majorVersion = new VersionNumber(Integer.valueOf(version));
         }
         final Distribution distribution = Distribution.fromText(vendor);
         OperatingSystem os;
