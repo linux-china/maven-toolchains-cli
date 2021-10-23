@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
 @Component
 @CommandLine.Command(name = "add", mixinStandardHelpOptions = true, description = "Add JDK into toolchains.xml from local or remote")
 public class AddJDK implements Callable<Integer>, BaseCommand {
-    @CommandLine.Option(names = "--vendor", description = "Java Vendor name: temurin(default), graalvm")
+    @CommandLine.Option(names = "--vendor", description = "Java Vendor name: temurin(default), oracle_openjdk, graalvm_ce17")
     private String vendor = "temurin";
     @CommandLine.Parameters(index = "0", description = "Java version: 8, 11, 17")
     private String version;
