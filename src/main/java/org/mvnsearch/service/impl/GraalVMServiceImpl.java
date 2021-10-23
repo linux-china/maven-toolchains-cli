@@ -19,6 +19,12 @@ public class GraalVMServiceImpl extends JdkDistributionSupport implements GraalV
             version = "11";
         }
         String os = getOsName();
+        if (os.equals("mac")) {
+            os = "darwin";
+        }
+        if (!graalVersion.endsWith(".0")) {
+            graalVersion = graalVersion + ".0";
+        }
         String extension = os.equals("windows") ? "zip" : "tar.gz";
         final String url = String.format("https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-%s/graalvm-ce-java%s-%s-amd64-%s.%s",
                 graalVersion, version, os, graalVersion, extension);
