@@ -12,13 +12,19 @@ public class DiscoClientTest {
     private DiscoClient discoClient = new DiscoClient();
 
     @Test
+    public void testListDistribution() {
+        final List<Distribution> distributions = discoClient.getDistributions();
+        for (Distribution distribution : distributions) {
+            System.out.println(distribution.getApiString());
+        }
+    }
+
+    @Test
     public void testFindJDK() {
         //version: 6-16
         final Queue<MajorVersion> allMajorVersions = discoClient.getAllMajorVersions();
         //distribution: ORACLE_OPEN_JDK, ORACLE, GRAALVM_CE11, ZULU
-        final List<Distribution> distributions = discoClient.getDistributions();
         //distribution for version
-        final List<Distribution> distributionsForVersion = discoClient.getDistributionsForVersion(new VersionNumber(11));
         //openjdk-11.0.2_osx-x64_bin.tar.gz
         final List<Pkg> pkgs = discoClient.getPkgs(
                 Distribution.ORACLE,
@@ -26,7 +32,7 @@ public class DiscoClientTest {
                 Latest.OVERALL,
                 OperatingSystem.MACOS,
                 LibCType.LIBC,
-                Architecture.AMD64,
+                Architecture.X64,
                 Bitness.BIT_64,
                 ArchiveType.TAR_GZ,
                 PackageType.JDK,
@@ -67,9 +73,6 @@ public class DiscoClientTest {
                 ReleaseStatus.GA,  //GA or EA
                 TermOfSupport.NONE,  // LTS, MTS, STS
                 Scope.DIRECTLY_DOWNLOADABLE);
-        pkgs.forEach(pkg -> {
-            System.out.println(pkg);
-            System.out.println(pkg.getId());
-        });
+        pkgs.forEach(System.out::println);
     }
 }
