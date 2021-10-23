@@ -18,4 +18,10 @@ public class FoojayServiceImplTest {
         final JdkDownloadLink jdkLink = foojayService.findRelease("21.2", "graalvm_ce11");
         System.out.println(jdkLink.getUrl() + ":  " + jdkLink.getFileName());
     }
+
+    @Test
+    public void testFindTemurinReleases() throws Exception {
+        final JdkDownloadLink jdkLink = foojayService.findRelease("17", "temurin");
+        System.out.println(jdkLink.getUrl() + ":  " + jdkLink.getFileName());
+    }
 }
