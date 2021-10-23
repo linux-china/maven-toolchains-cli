@@ -1,0 +1,8 @@
+### query all distributions
+GET https://api.foojay.io/disco/v2.0/distributions
+
+###  distribution package
+GET https://api.foojay.io/disco/v2.0/packages?distro=oracle&version=17&latest=overall&operating_system=macos&libc_type=libc&architecture=x64&bitness=64&archive_type=tar.gz&package_type=jdk&discovery_scope_id=directly_downloadable&javafx_bundled=false&directly_downloadable=true&release_status=ga
+
+### package info for download
+GET https://api.foojay.io/disco/v2.0/ephemeral_ids/ab534db1cefa7aa2e1191fb91d6eb48064be69dc
