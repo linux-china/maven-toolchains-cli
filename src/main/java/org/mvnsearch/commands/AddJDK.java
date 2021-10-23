@@ -1,7 +1,9 @@
 package org.mvnsearch.commands;
 
 import org.mvnsearch.model.Toolchain;
-import org.mvnsearch.service.*;
+import org.mvnsearch.service.FoojayService;
+import org.mvnsearch.service.JdkDownloadLink;
+import org.mvnsearch.service.ToolchainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.zeroturnaround.exec.ProcessExecutor;
@@ -25,11 +27,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
     @CommandLine.Parameters(index = "1", arity = "0..1", description = "Local Java Home with absolute path")
     private String javaHome;
     @Autowired
-    private AdoptiumService adoptiumService;
-    @Autowired
     private FoojayService foojayService;
-    @Autowired
-    private GraalVMService graalVMService;
     @Autowired
     private ToolchainService toolchainService;
 
@@ -37,7 +35,6 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
     public Integer call() {
         Toolchain toolchain = toolchainService.findToolchain(version, vendor);
         if (toolchain == null) {
-            String arch = getArchName();
             // link local jdk to toolchains.xml
             if (javaHome != null) {
                 // check home for Mac
@@ -47,16 +44,10 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
                 return installFromLocal();
             }
             try {
-                String os = getOsName();
-                JdkDownloadLink download;
-                if (vendor.equals("temurin")) {
-                    download = adoptiumService.findRelease(version);
-                } else {
-                    download = foojayService.findRelease(version, vendor);
-                }
+                JdkDownloadLink download = foojayService.findRelease(version, vendor);
                 if (download != null) {
                     File jdksDir = new File(System.getProperty("user.home") + "/.m2/jdks");
-                    File jdkHome = adoptiumService.downloadAndExtract(download.getUrl(), download.getFileName(), jdksDir.getAbsolutePath());
+                    File jdkHome = foojayService.downloadAndExtract(download.getUrl(), download.getFileName(), jdksDir.getAbsolutePath());
                     if (new File(jdkHome, "Contents/Home").exists()) {  // mac tgz
                         jdkHome = new File(jdkHome, "Contents/Home");
                     }

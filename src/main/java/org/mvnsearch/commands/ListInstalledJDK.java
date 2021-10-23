@@ -1,5 +1,6 @@
 package org.mvnsearch.commands;
 
+import org.mvnsearch.OsUtils;
 import org.springframework.stereotype.Component;
 import org.zeroturnaround.exec.ProcessExecutor;
 import picocli.CommandLine;
@@ -33,7 +34,7 @@ public class ListInstalledJDK implements Callable<Integer>, BaseCommand {
         installedDirs.add(new File(userHome, ".m2/jdks"));
         installedDirs.add(new File(userHome, ".jbang/cache/jdks"));
         // os related directories
-        String os = getOsName();
+        String os = OsUtils.getOsName();
         if (os.equals("mac")) {
             installedDirs.add(new File("/Library/Java/JavaVirtualMachines"));
             installedDirs.add(new File(userHome, "Library/Java/JavaVirtualMachines"));
