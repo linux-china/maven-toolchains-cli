@@ -39,6 +39,9 @@ public class Toolchain {
 
     public double findNumVersion() {
         String version = findVersion();
+        if(version.contains(".")) {
+            return Double.parseDouble(version.substring(0,version.indexOf(".")));
+        }
         return Double.parseDouble(version);
     }
 
