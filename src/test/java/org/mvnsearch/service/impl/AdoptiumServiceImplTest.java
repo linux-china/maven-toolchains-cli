@@ -1,23 +1,17 @@
 package org.mvnsearch.service.impl;
 
 import org.junit.jupiter.api.Test;
-import org.mvnsearch.model.jdk.JdkRelease;
+import org.mvnsearch.service.JdkDownloadLink;
 
 import java.io.File;
-import java.util.stream.Stream;
 
-public class AdoptOpenJDKServiceImplTest {
-    private AdoptOpenJDKServiceImpl adoptOpenJDKService = new AdoptOpenJDKServiceImpl();
+public class AdoptiumServiceImplTest {
+    private AdoptiumServiceImpl adoptOpenJDKService = new AdoptiumServiceImpl();
 
     @Test
     public void testFindJDKReleases() throws Exception {
-        Stream<JdkRelease> releases = Stream.of(adoptOpenJDKService.findReleases("11"));
-        releases.filter(jdkRelease -> jdkRelease.isJDKAvailable("mac", "x64"))
-                .forEach(jdkRelease -> {
-                    System.out.println(jdkRelease.getBinary().getJdkPackage().getName());
-                    System.out.println(jdkRelease.getBinary().getJdkPackage().getLink());
-                });
-
+        final JdkDownloadLink jdkLink = adoptOpenJDKService.findRelease("11");
+        System.out.println(jdkLink.getUrl() + ":" + jdkLink.getFileName());
     }
 
 
