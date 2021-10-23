@@ -22,7 +22,9 @@ public class GraalVMServiceImpl extends JdkDistributionSupport implements GraalV
         if (os.equals("mac")) {
             os = "darwin";
         }
-        if (!graalVersion.endsWith(".0")) {
+        if (graalVersion.matches("\\d+")) {
+            graalVersion = graalVersion + ".0.0";
+        } else if (graalVersion.matches("\\d+\\.\\d+$")) {
             graalVersion = graalVersion + ".0";
         }
         String extension = os.equals("windows") ? "zip" : "tar.gz";
