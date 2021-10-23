@@ -220,8 +220,8 @@
                 <configuration>
                     <toolchains>
                         <jdk>
-                            <version>11</version>
-                            <vendor>graalvm</vendor>
+                            <version>21.2</version>
+                            <vendor>graalvm_ce11</vendor>
                         </jdk>
                     </toolchains>
                 </configuration>
