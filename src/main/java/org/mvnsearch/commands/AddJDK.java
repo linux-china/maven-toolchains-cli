@@ -55,7 +55,10 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
                     System.out.println("Succeed to add JDK " + version + " in toolchains.xml");
                     if (vendor.contains("graalvm")) {
                         File guBin = new File(jdkHome, "bin/gu");
-                        new ProcessExecutor().command(guBin.getAbsolutePath(), "install", "native-image", "--ignore").execute();
+                        new ProcessExecutor()
+                                .environment("GRAALVM_HOME", jdkHome.getAbsolutePath())
+                                .command(guBin.getAbsolutePath(), "install", "native-image", "--ignore")
+                                .execute();
                     }
                 } else {
                     System.out.println("JDK not found: " + version);
