@@ -25,6 +25,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
     private String javaHome;
     @Autowired
     private AdoptiumService adoptiumService;
+    @Autowired
     private FoojayService foojayService;
     @Autowired
     private GraalVMService graalVMService;
