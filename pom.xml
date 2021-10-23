@@ -266,7 +266,7 @@
                             <mainClass>${start-class}</mainClass>
                             <imageName>${project.build.finalName}</imageName>
                             <buildArgs>
-                                --no-fallback
+                                --enable-url-protocols=https
                             </buildArgs>
                         </configuration>
                         <executions>
