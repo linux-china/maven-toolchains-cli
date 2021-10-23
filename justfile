@@ -1,4 +1,4 @@
-export MT_VERSION := "0.2.0"
+export MT_VERSION := "0.3.0"
 
 build:
   mvn -q -DskipTests package
