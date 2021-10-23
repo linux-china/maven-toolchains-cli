@@ -48,6 +48,7 @@ public class JdkDistributionSupport {
         System.out.println("Begin to extract: " + fileName);
         String extractDir = getRootNameInArchive(destFile);
         extractArchiveFile(destFile, new File(destDir));
+        destFile.delete();
         return new File(destDir, extractDir);
     }
 
