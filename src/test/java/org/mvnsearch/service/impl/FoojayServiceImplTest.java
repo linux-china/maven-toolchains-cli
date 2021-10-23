@@ -9,7 +9,7 @@ public class FoojayServiceImplTest {
 
     @Test
     public void testFindJDKReleases() throws Exception {
-        final JdkDownloadLink jdkLink = foojayService.findRelease("11", "oracle_openjdk");
-        System.out.println(jdkLink.getUrl() + ":" + jdkLink.getFileName());
+        final JdkDownloadLink jdkLink = foojayService.findRelease("11", "zulu");
+        System.out.println(jdkLink.getUrl() + ":  " + jdkLink.getFileName());
     }
 }
