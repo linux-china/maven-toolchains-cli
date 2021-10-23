@@ -13,7 +13,7 @@ import java.util.concurrent.Callable;
  * @author linux_china
  */
 @Component
-@CommandLine.Command(name = "plugin", mixinStandardHelpOptions = true, description = "Xml code for maven-toolchains-plugin")
+@CommandLine.Command(name = "plugin", mixinStandardHelpOptions = true, description = "Print maven-toolchains-plugin setting for pom.xml")
 public class MavenToolchainsPlugin implements Callable<Integer> {
     @CommandLine.Option(names = "--vendor", description = "Vendor name")
     private String vendor;

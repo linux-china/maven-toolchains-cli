@@ -13,7 +13,7 @@ import java.util.concurrent.Callable;
  * @author linux_china
  */
 @Component
-@CommandLine.Command(name = "delete", mixinStandardHelpOptions = true, description = "Delete JDK")
+@CommandLine.Command(name = "delete", mixinStandardHelpOptions = true, description = "Delete JDK from toolchains.xml")
 public class DeleteJDK implements Callable<Integer> {
     @CommandLine.Option(names = "--vendor", description = "Vendor name")
     private String vendor;

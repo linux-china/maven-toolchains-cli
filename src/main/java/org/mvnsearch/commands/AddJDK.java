@@ -15,7 +15,7 @@ import java.util.concurrent.Callable;
  * @author linux_china
  */
 @Component
-@CommandLine.Command(name = "add", mixinStandardHelpOptions = true, description = "Add JDK")
+@CommandLine.Command(name = "add", mixinStandardHelpOptions = true, description = "Add JDK into toolchains.xml from local or remote")
 public class AddJDK implements Callable<Integer>, BaseCommand {
     @CommandLine.Option(names = "--vendor", description = "Java Vendor name: temurin(default), graalvm")
     private String vendor = "temurin";

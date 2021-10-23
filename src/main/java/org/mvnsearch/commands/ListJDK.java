@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @author linux_china
  */
 @Component
-@CommandLine.Command(name = "list", mixinStandardHelpOptions = true, description = "List JDK")
+@CommandLine.Command(name = "list", mixinStandardHelpOptions = true, description = "List JDK in toolchains.xml")
 public class ListJDK implements Callable<Integer> {
     @Autowired
     private ToolchainService toolchainService;

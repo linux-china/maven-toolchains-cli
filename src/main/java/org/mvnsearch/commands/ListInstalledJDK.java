@@ -20,7 +20,7 @@ import static org.mvnsearch.commands.FormatUtil.tableWithLines;
  * @author linux_china
  */
 @Component
-@CommandLine.Command(name = "all", mixinStandardHelpOptions = true, description = "List all installed JDK")
+@CommandLine.Command(name = "all", mixinStandardHelpOptions = true, description = "List all installed JDK in your laptop")
 public class ListInstalledJDK implements Callable<Integer>, BaseCommand {
     @Override
     public Integer call() throws Exception {
