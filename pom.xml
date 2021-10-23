@@ -22,11 +22,6 @@
         <spring-native.version>0.10.4</spring-native.version>
         <spring-boot.version>2.5.5</spring-boot.version>
         <start-class>org.mvnsearch.MavenToolchainsCli</start-class>
-        <native-build.args>
-            --enable-all-security-services
-            --enable-https
-            -Dfile.encoding=UTF-8
-        </native-build.args>
     </properties>
 
     <developers>
@@ -266,7 +261,9 @@
                             <mainClass>${start-class}</mainClass>
                             <imageName>${project.build.finalName}</imageName>
                             <buildArgs>
-                                --enable-url-protocols=https
+                                --enable-all-security-services
+                                --enable-https
+                                -Dfile.encoding=UTF-8
                             </buildArgs>
                         </configuration>
                         <executions>
