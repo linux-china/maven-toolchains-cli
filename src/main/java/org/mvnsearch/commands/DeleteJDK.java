@@ -25,6 +25,7 @@ public class DeleteJDK implements Callable<Integer> {
     @Override
     public Integer call() {
         toolchainService.deleteToolChain(version, vendor);
+        System.out.println("Toolchain removed!");
         return 0;
     }
 }
