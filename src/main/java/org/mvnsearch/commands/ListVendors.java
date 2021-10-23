@@ -32,7 +32,7 @@ public class ListVendors implements Callable<Integer> {
         table.add(new String[]{"Liberica Native", "liberica_native", "21.0, 21.1, 21.2"});
         table.add(new String[]{"Mandrel", "mandrel", "20.1, 20.2, 20.3, 21, 21.1, 21.2, 21.3"});
         table.add(new String[]{"OJDKBuild", "ojdk_build", "8, 9, 10, 11, 12, 13, 14, 15"});
-        table.add(new String[]{"Oracle", "oracle", "6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17"});
+        table.add(new String[]{"Oracle", "oracle", "17"});
         table.add(new String[]{"Oracle OpenJDK", "oracle_openjdk", "8, 9, 10, 11, 12, 13, 14, 15, 16, 17"});
         table.add(new String[]{"Red Hat", "redhat", "8, 9, 10, 11, 12, 13, 14, 15"});
         table.add(new String[]{"SAP Machine", "sapmachine", "10, 11, 12, 13, 14, 15, 16, 17"});
