@@ -27,7 +27,7 @@ public class ListVendors implements Callable<Integer> {
         table.add(new String[]{"Dragonwell", "dragonwell", "8, 11, 17"});
         table.add(new String[]{"Graal VM CE 8", "graalvm_ce8", "19.3, 20, 20.1, 20.2, 20.3, 21, 21.1, 21.2"});
         table.add(new String[]{"Graal VM CE 11", "graalvm_ce11", "19.3, 20, 20.1, 20.2, 20.3, 21, 21.1, 21.2, 21.3"});
-        table.add(new String[]{"Graal VM CE 17", "graalvm_ce17", "21.3.0"});
+        table.add(new String[]{"Graal VM CE 17", "graalvm_ce17", "21.3"});
         table.add(new String[]{"Liberica", "liberica", "8, 9, 10, 11, 12, 13, 14, 15, 16, 17"});
         table.add(new String[]{"Liberica Native", "liberica_native", "21.0, 21.1, 21.2"});
         table.add(new String[]{"Mandrel", "mandrel", "20.1, 20.2, 20.3, 21, 21.1, 21.2, 21.3"});
