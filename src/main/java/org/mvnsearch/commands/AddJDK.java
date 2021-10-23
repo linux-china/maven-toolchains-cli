@@ -49,9 +49,7 @@ public class AddJDK implements Callable<Integer>, BaseCommand {
             try {
                 String os = getOsName();
                 JdkDownloadLink download;
-                if (vendor.contains("graalvm")) {
-                    download = graalVMService.findRelease(version, vendor);
-                } else if (vendor.equals("temurin")) {
+                if (vendor.equals("temurin")) {
                     download = adoptiumService.findRelease(version);
                 } else {
                     download = foojayService.findRelease(version, vendor);
