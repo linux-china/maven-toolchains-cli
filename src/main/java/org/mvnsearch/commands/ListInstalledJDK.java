@@ -66,6 +66,9 @@ public class ListInstalledJDK implements Callable<Integer>, BaseCommand {
                                 final String[] parts = javaVersionText.split("[\\s\"]+");
                                 String vendor = parts[0];
                                 String version = parts[2];
+                                if (vendor.equals("java")) {
+                                    vendor = "oracle";
+                                }
                                 return new String[]{vendor, version, javaHome.getAbsolutePath()};
                             } catch (Exception e) {
                                 return new String[]{"error", "error", FormatUtil.ERROR + javaHome.getAbsolutePath()};
