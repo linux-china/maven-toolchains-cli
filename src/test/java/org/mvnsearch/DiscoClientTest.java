@@ -27,7 +27,7 @@ public class DiscoClientTest {
         //distribution for version
         //openjdk-11.0.2_osx-x64_bin.tar.gz
         final List<Pkg> pkgs = discoClient.getPkgs(
-                Distribution.ORACLE,
+                List.of(new Distribution(null, null, "oracle")),
                 new VersionNumber(17),
                 Latest.OVERALL,
                 OperatingSystem.MACOS,
@@ -38,9 +38,10 @@ public class DiscoClientTest {
                 PackageType.JDK,
                 false,
                 true,
-                ReleaseStatus.GA,  //GA or EA
+                List.of(ReleaseStatus.GA),  //GA or EA
                 TermOfSupport.NONE,  // LTS, MTS, STS
-                Scope.DIRECTLY_DOWNLOADABLE);
+                List.of(Scope.DIRECTLY_DOWNLOADABLE),
+                Match.ANY);
         pkgs.forEach(pkg -> {
             System.out.println(pkg);
             System.out.println(pkg.getId());
@@ -51,7 +52,7 @@ public class DiscoClientTest {
     public void testPrintDownloadUrl() {
         String pkgId = "5b43d63862207af0091ab9b6cfb0d4c0";
         final Pkg pkg = discoClient.getPkg(pkgId);
-        final String pkgDirectDownloadUri = discoClient.getPkgDirectDownloadUri(pkg.getEphemeralId(), new SemVer(pkg.getDistributionVersion()));
+        final String pkgDirectDownloadUri = discoClient.getPkgDirectDownloadUri(pkg.getEphemeralId());
         System.out.println(pkgDirectDownloadUri);
     }
 
@@ -59,7 +60,7 @@ public class DiscoClientTest {
     public void testGraalVMDownload() {
         //graalvm-ce-java11-darwin-amd64-21.2.0.tar.gz
         final List<Pkg> pkgs = discoClient.getPkgs(
-                Distribution.GRAALVM_CE11,
+                List.of(new Distribution(null, null, "graalvm_ce11")),
                 new VersionNumber(21), //GraalVM version starts with 21
                 Latest.OVERALL,
                 OperatingSystem.MACOS,
@@ -70,9 +71,10 @@ public class DiscoClientTest {
                 PackageType.JDK,
                 false,
                 true,
-                ReleaseStatus.GA,  //GA or EA
+                List.of(ReleaseStatus.GA),  //GA or EA
                 TermOfSupport.NONE,  // LTS, MTS, STS
-                Scope.DIRECTLY_DOWNLOADABLE);
+                List.of(Scope.DIRECTLY_DOWNLOADABLE),
+                Match.ANY);
         pkgs.forEach(System.out::println);
     }
 }
