@@ -39,7 +39,7 @@ public class FoojayServiceImpl implements FoojayService {
         } else {
             majorVersion = new VersionNumber(Integer.valueOf(version));
         }
-        final Distribution distribution = Distribution.fromText(vendor);
+        final List<Distribution> distributions = List.of(new Distribution(null, null, vendor));
         OperatingSystem os;
         String osName = OsUtils.getOsName();
         ArchiveType archiveType = ArchiveType.TAR_GZ;
@@ -61,7 +61,7 @@ public class FoojayServiceImpl implements FoojayService {
             arch = Architecture.AARCH64;
         }
         final List<Pkg> pkgs = discoClient.getPkgs(
-                distribution,
+                distributions,
                 majorVersion,
                 Latest.OVERALL,
                 os,
@@ -72,14 +72,14 @@ public class FoojayServiceImpl implements FoojayService {
                 PackageType.JDK,
                 false,
                 true,
-                ReleaseStatus.GA,  //GA or EA
+                List.of(ReleaseStatus.GA),  //GA or EA
                 TermOfSupport.NONE,  // LTS, MTS, STS
-                Scope.DIRECTLY_DOWNLOADABLE);
+                List.of(Scope.DIRECTLY_DOWNLOADABLE),
+                Match.ANY);
         if (pkgs != null && !pkgs.isEmpty()) {
-
             String pkgId = pkgs.get(0).getId();
             final Pkg pkg = discoClient.getPkg(pkgId);
-            final String pkgDirectDownloadUri = discoClient.getPkgDirectDownloadUri(pkg.getEphemeralId(), new SemVer(pkg.getDistributionVersion()));
+            final String pkgDirectDownloadUri = discoClient.getPkgDirectDownloadUri(pkg.getEphemeralId());
             return new JdkDownloadLink(pkgDirectDownloadUri, pkg.getFileName());
         }
         return null;
@@ -115,6 +115,7 @@ public class FoojayServiceImpl implements FoojayService {
         System.out.println("Begin to extract: " + fileName);
         String extractDir = getRootNameInArchive(destFile);
         extractArchiveFile(destFile, new File(destDir));
+        //noinspection ResultOfMethodCallIgnored
         destFile.delete();
         return new File(destDir, extractDir);
     }
