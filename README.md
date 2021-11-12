@@ -17,9 +17,9 @@ $ mt --version
 
 # commands
 
-* all  - List all JDK on host
+* all - List all JDK on host
 * list - List JDK in toolchains.xml
-* add  - Add JDK from local or remote into toolchains.xml `mt add 1.8 /Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk`  or `mt add 16`
+* add - Add JDK from local or remote into toolchains.xml `mt add 1.8 /Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk`  or `mt add 16`
 * delete - Delete JDK in toolchains.xml
 * vendors - List JDK Vendors
 
@@ -27,9 +27,9 @@ $ mt --version
 
 * system:
 
-   * mac: /Library/Java/JavaVirtualMachines
-   * windows: C:\Program Files\Java\
-   * linux:  /usr/lib/jvm
+    * mac: /Library/Java/JavaVirtualMachines
+    * windows: C:\Program Files\Java\
+    * linux:  /usr/lib/jvm
 
 * IntelliJ: ~/Library/Java/JavaVirtualMachines/
 * sdkman: ~/.sdkman/candidates/java/
@@ -55,39 +55,26 @@ $ mt --version
 Please add toolchains profile in your pom.xml
 
 ```xml
-   <profiles>
-      <profile>
-            <id>toolchains</id>
-            <activation>
-                <file>
-                    <exists>${env.HOME}/.m2/toolchains.xml</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-toolchains-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>toolchain</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <toolchains>
-                                <jdk>
-                                    <version>17</version>
-                                </jdk>
-                            </toolchains>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-      </profiles>
+
+<plugin>
+    <groupId>org.mvnsearch</groupId>
+    <artifactId>toolchains-maven-plugin</artifactId>
+    <version>4.0.0</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>toolchain</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <toolchains>
+            <jdk>
+                <version>17</version>
+            </jdk>
+        </toolchains>
+    </configuration>
+</plugin>
 ```
 
 # References
