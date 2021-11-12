@@ -35,7 +35,7 @@ public class FormatUtil {
         //Prepare format String
         final StringBuilder formatString = new StringBuilder("");
         String flag = leftJustifiedRows ? "-" : "";
-        columnLengths.entrySet().stream().forEach(e -> formatString.append("| %" + flag + e.getValue() + "s "));
+        columnLengths.forEach((key, value) -> formatString.append("| %" + flag + value + "s "));
         formatString.append("|\n");
 
         //Prepare line for top, bottom & below header row.

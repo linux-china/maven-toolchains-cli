@@ -40,7 +40,7 @@ public class ListJDK implements Callable<Integer> {
                     } else {
                         return new String[]{vendor, version, FormatUtil.ERROR + jdkHome};
                     }
-                }).collect(Collectors.toList());
+                }).toList();
         table.addAll(jdkList);
         FormatUtil.tableWithLines(table);
         return 0;

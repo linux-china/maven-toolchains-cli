@@ -74,7 +74,7 @@ public class ListInstalledJDK implements Callable<Integer>, BaseCommand {
                             } catch (Exception e) {
                                 return new String[]{"error", "error", FormatUtil.ERROR + javaHome.getAbsolutePath()};
                             }
-                        }).collect(Collectors.toList());
+                        }).toList();
                 table.addAll(rows);
             }
         }
