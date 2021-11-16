@@ -43,13 +43,17 @@ public class FoojayServiceImpl implements FoojayService {
         OperatingSystem os;
         String osName = OsUtils.getOsName();
         ArchiveType archiveType = ArchiveType.TAR_GZ;
+        LibCType libcType;
         if (osName.equals("mac")) {
             os = OperatingSystem.MACOS;
+            libcType = LibCType.LIBC;
         } else if (osName.equals("windows")) {
             os = OperatingSystem.WINDOWS;
+            libcType = LibCType.C_STD_LIB;
             archiveType = ArchiveType.ZIP;
         } else {
             os = OperatingSystem.LINUX;
+            libcType = LibCType.GLIBC;
         }
         Architecture arch = Architecture.X64;
         Bitness bitness = Bitness.BIT_64;
