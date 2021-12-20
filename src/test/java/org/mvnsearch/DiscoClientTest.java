@@ -60,8 +60,8 @@ public class DiscoClientTest {
     public void testGraalVMDownload() {
         //graalvm-ce-java11-darwin-amd64-21.2.0.tar.gz
         final List<Pkg> pkgs = discoClient.getPkgs(
-                List.of(new Distribution(null, null, "graalvm_ce11")),
-                new VersionNumber(21), //GraalVM version starts with 21
+                List.of(new Distribution(null, null, "graalvm_ce17")),
+                new VersionNumber(21, 3), //GraalVM version starts with 21
                 Latest.OVERALL,
                 OperatingSystem.MACOS,
                 LibCType.LIBC,
