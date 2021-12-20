@@ -28,8 +28,8 @@ public class ToolchainServiceImpl implements ToolchainService {
             if (toolchainsXml.exists()) {
                 return xmlMapper.readValue(toolchainsXml, Toolchains.class);
             }
-        } catch (IOException ignore) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return new Toolchains();
     }
