@@ -28,15 +28,16 @@ public class SyncJbangJdks implements Callable<Integer>, BaseCommand {
                 .map(Toolchain::findVersion)
                 .toList();
         File jbangHome = new File(System.getProperty("user.home"), ".jbang");
-        if (!jbangHome.exists()) {
+        if (jbangHome.exists()) {
             File jdksDir = new File(jbangHome, "cache/jdks");
             if (jdksDir.exists()) {
-                final File[] jdkList = jdksDir.listFiles((dir, name) -> !jdkVersions.contains(name));
+                final File[] jdkList = jdksDir.listFiles((dir, name) -> {
+                    File jdkHome = new File(dir, name);
+                    return jdkHome.isDirectory() && !jdkVersions.contains(name);
+                });
                 if (jdkList != null && jdkList.length > 0) {
                     for (File jdkHome : jdkList) {
-                        if (jdkHome.isDirectory()) {
-                            toolchainService.addToolChain(jdkHome.getName(), null, jdkHome.getAbsolutePath());
-                        }
+                        toolchainService.addToolChain(jdkHome.getName(), null, jdkHome.getAbsolutePath());
                     }
                 }
             }
