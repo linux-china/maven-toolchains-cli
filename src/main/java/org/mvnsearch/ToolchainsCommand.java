@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
 @Component
 @Command(name = "mt", version = "0.4.0",
         mixinStandardHelpOptions = true,
-        subcommands = {ListJDK.class, AddJDK.class, DeleteJDK.class, ListInstalledJDK.class, MavenToolchainsPlugin.class, ListVendors.class}
+        subcommands = {ListJDK.class, AddJDK.class, DeleteJDK.class, ListInstalledJDK.class, MavenToolchainsPlugin.class, ListVendors.class, SyncJbangJdks.class}
 )
 public class ToolchainsCommand implements Callable<Integer> {
     @Override
