@@ -19,8 +19,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <graalvm.version>21.3.0</graalvm.version>
         <picocli.version>4.6.2</picocli.version>
-        <spring-native.version>0.11.0-M2</spring-native.version>
-        <spring-boot.version>2.6.0-RC1</spring-boot.version>
+        <spring-native.version>0.11.0</spring-native.version>
+        <spring-boot.version>2.6.1</spring-boot.version>
         <start-class>org.mvnsearch.MavenToolchainsCli</start-class>
     </properties>
 
@@ -177,7 +177,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.8.1</version>
+                <version>5.8.2</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -259,7 +259,7 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
-                        <version>0.9.7.1</version>
+                        <version>0.9.8</version>
                         <configuration>
                             <mainClass>${start-class}</mainClass>
                             <imageName>${project.build.finalName}</imageName>
