@@ -19,8 +19,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <graalvm.version>21.3.0</graalvm.version>
         <picocli.version>4.6.2</picocli.version>
-        <spring-native.version>0.11.0</spring-native.version>
-        <spring-boot.version>2.6.1</spring-boot.version>
+        <spring-native.version>0.11.1</spring-native.version>
+        <spring-boot.version>2.6.2</spring-boot.version>
         <start-class>org.mvnsearch.MavenToolchainsCli</start-class>
     </properties>
 
