@@ -27,16 +27,16 @@ $ mt --version
 
 * system:
 
-    * mac: /Library/Java/JavaVirtualMachines
-    * windows: C:\Program Files\Java\
-    * linux:  /usr/lib/jvm
+    * mac: `/Library/Java/JavaVirtualMachines`
+    * windows: `C:\Program Files\Java\`
+    * linux:  `/usr/lib/jvm`
 
-* IntelliJ: ~/Library/Java/JavaVirtualMachines/
-* sdkman: ~/.sdkman/candidates/java/
-* gradle: ~/.gradle/jdks
-* jenv: ~/.jenv/candidates/java/
-* maven: ~/.m2/jdks
-* jbang: ~/.jbang/cache/jdks
+* IntelliJ: `~/Library/Java/JavaVirtualMachines/`
+* sdkman: `~/.sdkman/candidates/java/`
+* gradle: `~/.gradle/jdks`
+* jenv: `~/.jenv/candidates/java/`
+* maven: `~/.m2/jdks`
+* jbang: `~/.jbang/cache/jdks`
 
 ### OS
 
@@ -59,7 +59,7 @@ Please add toolchains profile in your pom.xml
 <plugin>
     <groupId>org.mvnsearch</groupId>
     <artifactId>toolchains-maven-plugin</artifactId>
-    <version>4.0.0</version>
+    <version>4.4.0</version>
     <executions>
         <execution>
             <goals>
