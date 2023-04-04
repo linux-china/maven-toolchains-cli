@@ -1,4 +1,4 @@
-export MT_VERSION := "0.4.0"
+export MT_VERSION := "0.5.0"
 
 build:
   mvn -q -DskipTests package
@@ -27,9 +27,12 @@ all: build
 plugin: build
   java -jar target/mt.jar plugin 8
 
+run_with_agent:
+   mkdir -p target/classes/META-INF/native-image
+   java -agentlib:native-image-agent=config-output-dir=target/classes/META-INF/native-image -jar target/mt.jar list
+
 native-build:
-  mvn -Pnative -DskipTests clean package
-  upx -7  target/mt
+  mvn -Pnative -DskipTests native:compile
 
 native-tar:
   rm -rf mt-{{MT_VERSION}}-mac-x64.tar
