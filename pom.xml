@@ -26,7 +26,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <graalvm.version>22.3.0</graalvm.version>
         <picocli.version>4.7.1</picocli.version>
-        <start-class>org.mvnsearch.MavenToolchainsCli</start-class>
+        <mainClass>org.mvnsearch.MavenToolchainsCli</mainClass>
+        <imageName>mt</imageName>
     </properties>
 
     <developers>
@@ -214,7 +215,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>${start-class}</mainClass>
+                    <mainClass>${mainClass}</mainClass>
                 </configuration>
             </plugin>
         </plugins>
