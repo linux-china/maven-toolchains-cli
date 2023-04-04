@@ -1,5 +1,7 @@
 package org.mvnsearch;
 
+import eu.hansolo.jdktools.*;
+import eu.hansolo.jdktools.versioning.*;
 import io.foojay.api.discoclient.DiscoClient;
 import io.foojay.api.discoclient.pkg.*;
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,7 @@ import java.util.Queue;
 
 
 public class DiscoClientTest {
-    private DiscoClient discoClient = new DiscoClient();
+    private final DiscoClient discoClient = new DiscoClient();
 
     @Test
     public void testListDistribution() {
