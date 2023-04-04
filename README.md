@@ -80,7 +80,7 @@ Please add toolchains profile in your pom.xml
 
 # References
                    
-* Toolchains Maven Plugin: Toolchains Maven Plugin with JDK auto download https://maven.apache.org/plugins/maven-toolchains-plugin/
+* Toolchains Maven Plugin: Toolchains Maven Plugin with JDK auto download https://github.com/linux-china/toolchains-maven-plugin
 * Apache Maven Toolchains Plugin(official): https://maven.apache.org/plugins/maven-toolchains-plugin/index.html
 * Maven toolchains.xml generator: https://gist.github.com/mathieucarbou/d7ce8fdf3e807e67ae07a9e79c66d82c
 * Adoptium: Eclipse Temurin https://adoptium.net/
