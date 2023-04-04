@@ -1,7 +1,11 @@
 package org.mvnsearch.service.impl;
 
+import eu.hansolo.jdktools.*;
+import eu.hansolo.jdktools.versioning.VersionNumber;
 import io.foojay.api.discoclient.DiscoClient;
-import io.foojay.api.discoclient.pkg.*;
+import io.foojay.api.discoclient.pkg.Distribution;
+import io.foojay.api.discoclient.pkg.Pkg;
+import io.foojay.api.discoclient.pkg.Scope;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
