@@ -2,9 +2,10 @@ package org.mvnsearch.model;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class Toolchain {
+public class Toolchain implements Serializable {
     private String type;
     private Map<String, Object> provides;
     private Map<String, Object> configuration;

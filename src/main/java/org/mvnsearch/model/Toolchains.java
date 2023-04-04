@@ -5,11 +5,12 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @JacksonXmlRootElement(localName = "toolchains")
-public class Toolchains {
+public class Toolchains implements Serializable {
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty
     private List<Toolchain> toolchain = new ArrayList<>();
