@@ -35,12 +35,15 @@ public class SyncJbangJdks implements Callable<Integer>, BaseCommand {
                     File jdkHome = new File(dir, name);
                     return jdkHome.isDirectory() && !jdkVersions.contains(name);
                 });
-                if (jdkList != null && jdkList.length > 0) {
+                if (jdkList != null) {
                     for (File jdkHome : jdkList) {
                         toolchainService.addToolChain(jdkHome.getName(), null, jdkHome.getAbsolutePath());
                     }
+                    System.out.println(jdkList.length + " JDKs synced from JBang");
                 }
             }
+        } else {
+            System.out.println("JBang not found: "+jbangHome.getAbsolutePath());
         }
         return 0;
     }
