@@ -8,7 +8,7 @@ import picocli.CommandLine.Command;
 import java.util.concurrent.Callable;
 
 @Component
-@Command(name = "mt", version = "0.5.0",
+@Command(name = "mt", version = "0.5.1",
         mixinStandardHelpOptions = true,
         subcommands = {ListJDK.class, AddJDK.class, DeleteJDK.class, ListInstalledJDK.class, MavenToolchainsPlugin.class, ListVendors.class, SyncJbangJdks.class}
 )
