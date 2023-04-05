@@ -31,7 +31,7 @@ public class MavenToolchainsPlugin implements Callable<Integer> {
                     <plugin>
                         <groupId>org.mvnsearch</groupId>
                         <artifactId>toolchains-maven-plugin</artifactId>
-                        <version>4.1.0</version>
+                        <version>4.4.0</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -55,7 +55,7 @@ public class MavenToolchainsPlugin implements Callable<Integer> {
                     <plugin>
                         <groupId>org.mvnsearch</groupId>
                         <artifactId>toolchains-maven-plugin</artifactId>
-                        <version>4.1.0</version>
+                        <version>4.4.0</version>
                         <executions>
                             <execution>
                                 <goals>
