@@ -25,7 +25,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <graalvm.version>22.3.0</graalvm.version>
-        <picocli.version>4.7.1</picocli.version>
+        <picocli.version>4.7.2</picocli.version>
         <mainClass>org.mvnsearch.MavenToolchainsCli</mainClass>
         <imageName>mt</imageName>
     </properties>
@@ -168,7 +168,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.24.1</version>
+            <version>3.24.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
